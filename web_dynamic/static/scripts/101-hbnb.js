@@ -78,4 +78,25 @@ $(document).ready(() => {
       }
     });
   });
+
+  $('#toggle_reviews').click(function () {
+    if ($(this).text() === 'show') {
+      $.get('http://0.0.0.0:5001/api/v1/reviews/', (data) => {
+        $('#reviews').empty();
+        data.forEach((review) => {
+          $('#reviews').append(
+            `<div class="review">
+              <h3>${review.title}</h3>
+              <p>${review.text}</p>
+            </div>`
+          );
+        });
+        $('#reviews').show();
+        $(this).text('hide');
+      });
+    } else {
+      $('#reviews').hide();
+      $(this).text('show');
+    }
+  });
 });
